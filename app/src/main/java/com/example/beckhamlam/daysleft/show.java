@@ -15,9 +15,10 @@ public class show extends AppCompatActivity {
         setContentView(R.layout.activity_show);
 
         Intent intent = getIntent();
-        String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+        String date = intent.getStringExtra(MainActivity.sDate);
+        String message = intent.getStringExtra(MainActivity.message);
 
         TextView textView = findViewById(R.id.textView2);
-        textView.setText("Days left until your event " + message);
+        textView.setText("Days left until your event " + message + " on " + date);
     }
 }
