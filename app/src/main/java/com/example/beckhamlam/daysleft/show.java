@@ -13,6 +13,7 @@ public class show extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show);
+        getSupportActionBar().hide();
 
         Intent intent = getIntent();
         String date = intent.getStringExtra(MainActivity.sDate);
