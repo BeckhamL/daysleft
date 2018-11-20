@@ -39,9 +39,9 @@ public class MainActivity extends AppCompatActivity {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(MainActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        tDate = year + "/" + month + "/" + dayOfMonth;
+                        tDate = dayOfMonth + "/" + (month + 1) + "/" + year;
                     }
-                }, year, month, day);
+                }, year, month , day);
                 datePickerDialog.show();
             }
         });
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(message, messageTextView);
         startActivity(intent);
 
-        Toast toast = Toast.makeText(getApplicationContext(), "Event added", Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(getApplicationContext(), "Event added!", Toast.LENGTH_SHORT);
         toast.show();
     }
 }

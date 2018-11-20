@@ -15,10 +15,23 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="91dp"
             android:text="TextView"
+            tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteX="163dp"
-            tools:layout_editor_absoluteY="217dp"
-            tools:ignore="MissingConstraints" />
+            tools:layout_editor_absoluteY="217dp" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="223dp"
+            android:layout_marginEnd="162dp"
+            android:text="TextView" />
 
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>
