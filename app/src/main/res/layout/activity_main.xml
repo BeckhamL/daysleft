@@ -32,8 +32,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="-217dp"
-            android:layout_marginTop="164dp"
+            android:layout_marginStart="-220dp"
+            android:layout_marginTop="221dp"
             android:layout_toEndOf="@+id/button"
             android:ems="10"
             android:inputType="text"
@@ -42,21 +42,25 @@
 
         <TextView
             android:id="@+id/myTest"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="169dp"
-            android:layout_marginTop="73dp"
-            android:text="Please choose an important date" />
+            android:layout_marginStart="156dp"
+            android:layout_marginTop="64dp"
+            android:fontFamily="@font/mukta_bold"
+            android:lineSpacingExtra="1dp"
+            android:text="Add an event"
+            android:textColor="@color/black"
+            android:textSize="36dp" />
 
         <Button
             android:id="@+id/button2"
             android:layout_width="223dp"
             android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/button"
             android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="213dp"
+            android:layout_marginBottom="169dp"
             android:background="@color/blue"
             android:text="Add Date"
             android:textColor="@color/white" />

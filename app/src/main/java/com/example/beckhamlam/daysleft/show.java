@@ -1,3 +1,5 @@
+//TODO: validate whether date user inputted is after currDate
+
 package com.example.beckhamlam.daysleft;
 
 import android.annotation.SuppressLint;
@@ -7,6 +9,8 @@ import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -15,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 public class show extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    @SuppressLint({"SetTextI18n", "SimpleDateFormat", "DefaultLocale"})
+    @SuppressLint({"SetTextI18n", "SimpleDateFormat", "DefaultLocale", "ShowToast"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,14 +37,20 @@ public class show extends AppCompatActivity {
 
             long difference = (getDateDiff(date, currDate) * - 1) + 1;
 
-            SimpleDateFormat formatter = new SimpleDateFormat("EEEE, MMM dd, yyy");
-            String formattedDate = formatter.format(date);
+            if (date.before(currDate)) {
+                Toast.makeText(this, "Invalid date", Toast.LENGTH_SHORT);
+            }
 
-            TextView textView = findViewById(R.id.textView2);
-            TextView textDaysLeft = findViewById(R.id.textView3);
+            else {
+                SimpleDateFormat formatter = new SimpleDateFormat("EEEE, MMM dd, yyy");
+                String formattedDate = formatter.format(date);
 
-            textView.setText("Days left until your event " + message + " on " + formattedDate);
-            textDaysLeft.setText(String.format("%d", difference));
+                TextView textView = findViewById(R.id.textView2);
+                TextView textDaysLeft = findViewById(R.id.textView3);
+
+                textView.setText("Days left until your event " + message + " on " + formattedDate);
+                textDaysLeft.setText(String.format("%d", difference));
+            }
 
         } catch (ParseException e) {
             e.printStackTrace();
