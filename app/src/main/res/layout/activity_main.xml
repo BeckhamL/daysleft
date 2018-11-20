@@ -20,7 +20,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="89dp"
-            android:background="@color/blue"
+            android:background="@drawable/mybutton"
             android:onClick="sendMessage"
             android:text="Confirm"
             android:textColor="@color/white"
@@ -38,7 +38,8 @@
             android:ems="10"
             android:inputType="text"
             tools:layout_editor_absoluteX="84dp"
-            tools:layout_editor_absoluteY="154dp" />
+            tools:layout_editor_absoluteY="154dp"
+            android:gravity="center"/>
 
         <TextView
             android:id="@+id/myTest"
@@ -61,7 +62,7 @@
             android:layout_alignStart="@+id/button"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="169dp"
-            android:background="@color/blue"
+            android:background="@drawable/mybutton"
             android:text="Add Date"
             android:textColor="@color/white" />
 
