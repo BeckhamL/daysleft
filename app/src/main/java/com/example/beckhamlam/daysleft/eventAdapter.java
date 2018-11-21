@@ -13,9 +13,11 @@ import java.util.ArrayList;
 public class eventAdapter extends RecyclerView.Adapter<eventAdapter.ViewHolder> {
 
     private ArrayList<event> events;
+    private Context context;
 
-    public eventAdapter(ArrayList<event> events) {
+    public eventAdapter(ArrayList<event> events, Context context) {
         this.events = events;
+        this.context = context;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -25,7 +27,6 @@ public class eventAdapter extends RecyclerView.Adapter<eventAdapter.ViewHolder> 
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
             event_name = itemView.findViewById(R.id.event_name);
             days_left = itemView.findViewById(R.id.days_left);
         }
@@ -35,7 +36,7 @@ public class eventAdapter extends RecyclerView.Adapter<eventAdapter.ViewHolder> 
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
-        Context context = viewGroup.getContext();
+        final Context context = viewGroup.getContext();
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         View eventView = layoutInflater.inflate(R.layout.item_event, viewGroup, false);
 

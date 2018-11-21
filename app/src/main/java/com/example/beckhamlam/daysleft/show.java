@@ -11,8 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.TextView;
-
+import android.view.View;
+import android.widget.Button;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -35,15 +35,23 @@ public class show extends AppCompatActivity {
         String dateString = intent.getStringExtra(MainActivity.sDate);
         String message = intent.getStringExtra(MainActivity.message);
 
+        Button button = findViewById(R.id.addNew);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent newIntent = new Intent(show.this, MainActivity.class);
+                startActivity(newIntent);
+            }
+        });
+
         try {
-            SimpleDateFormat parser = new SimpleDateFormat("dd/MM/yyyy");
-            Date date = parser.parse(dateString);
+            Date date = getDateFormat(dateString);
             Date currDate = getLocalDate();
+            String formattedDate = formatDate(date);
 
             long difference = (getDateDiff(date, currDate) * - 1) + 1;
-
-            SimpleDateFormat formatter = new SimpleDateFormat("EEEE, MMM dd, yyy");
-            String formattedDate = formatter.format(date);
 
             events = event.createEventList(new event(message, formattedDate, difference));
             /*
@@ -53,7 +61,7 @@ public class show extends AppCompatActivity {
             */
             RecyclerView rvEvents = findViewById(R.id.rvEvents);
 
-            eventAdapter eventAdapter = new eventAdapter(events);
+            eventAdapter eventAdapter = new eventAdapter(events, this);
             rvEvents.setAdapter(eventAdapter);
             rvEvents.setLayoutManager(new LinearLayoutManager(this));
 
@@ -71,5 +79,18 @@ public class show extends AppCompatActivity {
     public static Date getLocalDate() {
         Date date = new Date();
         return date;
+    }
+
+    public static Date getDateFormat(String s) throws ParseException {
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat parser = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = parser.parse(s);
+
+        return date;
+    }
+
+    public static String formatDate(Date date) {
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("EEEE, MMM dd, yyy");
+
+        return formatter.format(date);
     }
 }
