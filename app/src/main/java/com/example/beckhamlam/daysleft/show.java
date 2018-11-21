@@ -46,7 +46,11 @@ public class show extends AppCompatActivity {
             String formattedDate = formatter.format(date);
 
             events = event.createEventList(new event(message, formattedDate, difference));
-
+            /*
+            events.add(new event("hello", "december", 230));
+            events.add(new event("hello", "december", 230));
+            events.add(new event("hello", "december", 230));
+            */
             RecyclerView rvEvents = findViewById(R.id.rvEvents);
 
             eventAdapter eventAdapter = new eventAdapter(events);

@@ -50,7 +50,7 @@ public class eventAdapter extends RecyclerView.Adapter<eventAdapter.ViewHolder> 
         event event = events.get(i);
 
         TextView event_name = viewHolder.event_name;
-        event_name.setText("Days left until your event: "+ event.getEvent() + " on " + event.getFormattedDate());
+        event_name.setText("Event: " + event.getEvent() + "\n" + "Date: " + event.getFormattedDate());
 
         TextView days_left = viewHolder.days_left;
         days_left.setText(String.valueOf(event.getDaysLeft()) + " days");

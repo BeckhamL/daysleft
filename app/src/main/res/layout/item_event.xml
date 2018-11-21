@@ -1,30 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="horizontal"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        >
+        tools:ignore="MissingConstraints">
 
         <TextView
             android:id="@+id/event_name"
-            android:layout_width="275dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/mukta_regular"
+            android:gravity="left"
+            android:textColor="@color/black"
+            android:textSize="20dp" />
 
         <TextView
             android:id="@+id/days_left"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="80dp"
+            android:fontFamily="@font/mukta_extrabold"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
-            android:textSize="10sp" />
+            android:textColor="@color/black"
+            android:textSize="30dp" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
