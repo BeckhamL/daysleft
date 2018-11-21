@@ -1,4 +1,5 @@
 //TODO: validate whether date user inputted is after currDate
+// TODO: fix bug where new list is made
 
 package com.example.beckhamlam.daysleft;
 
@@ -30,14 +31,6 @@ public class show extends AppCompatActivity {
         setContentView(R.layout.activity_show);
         getSupportActionBar().hide();
 
-        RecyclerView rvEvents = findViewById(R.id.rvEvents);
-
-        events = event.createEventList(20);
-
-        eventAdapter eventAdapter = new eventAdapter(events);
-        rvEvents.setAdapter(eventAdapter);
-        rvEvents.setLayoutManager(new LinearLayoutManager(this));
-
         Intent intent = getIntent();
         String dateString = intent.getStringExtra(MainActivity.sDate);
         String message = intent.getStringExtra(MainActivity.message);
@@ -48,19 +41,17 @@ public class show extends AppCompatActivity {
             Date currDate = getLocalDate();
 
             long difference = (getDateDiff(date, currDate) * - 1) + 1;
-            //Intent intent1 = new Intent(this, event.class);
-            //intent1.putExtra("difference", difference);
 
             SimpleDateFormat formatter = new SimpleDateFormat("EEEE, MMM dd, yyy");
             String formattedDate = formatter.format(date);
 
-            TextView textView = findViewById(R.id.textView2);
-            TextView textDaysLeft = findViewById(R.id.textView3);
+            events = event.createEventList(new event(message, formattedDate, difference));
 
-            textView.setText("Days left until your event " + message + " on " + formattedDate);
-            textDaysLeft.setText(String.format("%d", difference));
+            RecyclerView rvEvents = findViewById(R.id.rvEvents);
 
-            events.add(new event(message, difference));
+            eventAdapter eventAdapter = new eventAdapter(events);
+            rvEvents.setAdapter(eventAdapter);
+            rvEvents.setLayoutManager(new LinearLayoutManager(this));
 
         } catch (ParseException e) {
             e.printStackTrace();

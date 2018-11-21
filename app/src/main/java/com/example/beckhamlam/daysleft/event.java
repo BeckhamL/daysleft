@@ -4,9 +4,11 @@ import java.util.ArrayList;
 public class event {
     private String event;
     private long daysLeft;
+    private String formattedDate;
 
-    public event(String event, long daysLeft) {
+    public event(String event, String formattedDate, long daysLeft) {
         this.event = event;
+        this.formattedDate = formattedDate;
         this.daysLeft = daysLeft;
     }
 
@@ -18,16 +20,15 @@ public class event {
         return event;
     }
 
-    private static int lastEventId = 0;
+    public String getFormattedDate() {
+        return formattedDate;
+    }
 
-
-    public static ArrayList<event> createEventList(int numEvents) {
+    public static ArrayList<event> createEventList(event event) {
 
         ArrayList<event> list = new ArrayList<>();
 
-        for (int i = 1; i < numEvents; i++) {
-            list.add(new event("Event" + ++lastEventId, 0));
-        }
+        list.add(event);
         return list;
     }
 
