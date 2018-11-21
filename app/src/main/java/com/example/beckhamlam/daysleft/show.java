@@ -1,5 +1,7 @@
-//TODO: validate whether date user inputted is after currDate
+// TODO: validate whether date user inputted is after currDate
 // TODO: fix bug where new list is made
+// TODO: save state for show
+// TODO: bug where date isnt displayed properly on recyclerview, seems to break saturday, wednesday and thursday
 
 package com.example.beckhamlam.daysleft;
 
@@ -72,25 +74,27 @@ public class show extends AppCompatActivity {
 
     public static long getDateDiff(Date date1, Date date2) {
         long diff = date2.getTime() - date1.getTime();
-        long value = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
-        return value;
+        return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
     }
 
     public static Date getLocalDate() {
-        Date date = new Date();
-        return date;
+        return new Date();
     }
 
     public static Date getDateFormat(String s) throws ParseException {
         @SuppressLint("SimpleDateFormat") SimpleDateFormat parser = new SimpleDateFormat("dd/MM/yyyy");
-        Date date = parser.parse(s);
 
-        return date;
+        return parser.parse(s);
     }
 
     public static String formatDate(Date date) {
         @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("EEEE, MMM dd, yyy");
 
         return formatter.format(date);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
     }
 }

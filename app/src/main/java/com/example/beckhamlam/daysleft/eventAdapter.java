@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -20,7 +21,7 @@ public class eventAdapter extends RecyclerView.Adapter<eventAdapter.ViewHolder> 
         this.context = context;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public TextView event_name;
         public TextView days_left;
@@ -29,6 +30,15 @@ public class eventAdapter extends RecyclerView.Adapter<eventAdapter.ViewHolder> 
             super(itemView);
             event_name = itemView.findViewById(R.id.event_name);
             days_left = itemView.findViewById(R.id.days_left);
+
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            int position = getAdapterPosition();
+            Toast toast = Toast.makeText(context, String.valueOf(position), Toast.LENGTH_SHORT);
+            toast.show();
         }
     }
 
@@ -54,7 +64,7 @@ public class eventAdapter extends RecyclerView.Adapter<eventAdapter.ViewHolder> 
         event_name.setText("Event: " + event.getEvent() + "\n" + "Date: " + event.getFormattedDate());
 
         TextView days_left = viewHolder.days_left;
-        days_left.setText(String.valueOf(event.getDaysLeft()) + " days");
+        days_left.setText(String.valueOf(event.getDaysLeft()) + " day(s)");
 
     }
 
