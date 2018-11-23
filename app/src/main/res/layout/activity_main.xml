@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,9 +10,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/yellow"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="130dp"
-        tools:ignore="MissingConstraints">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="0dp">
 
         <Button
             android:id="@+id/button"
@@ -21,13 +23,13 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="89dp"
             android:background="@drawable/mybutton"
+            android:fontFamily="@font/mukta_bold"
             android:onClick="sendMessage"
             android:text="Confirm"
             android:textColor="@color/white"
+            android:textSize="22dp"
             tools:layout_editor_absoluteX="148dp"
-            tools:layout_editor_absoluteY="231dp"
-            android:fontFamily="@font/mukta_bold"
-            android:textSize="22dp"/>
+            tools:layout_editor_absoluteY="231dp" />
 
         <EditText
             android:id="@+id/editText"
@@ -38,22 +40,27 @@
             android:layout_marginTop="221dp"
             android:layout_toEndOf="@+id/button"
             android:ems="10"
+            android:gravity="center"
             android:inputType="text"
             tools:layout_editor_absoluteX="84dp"
             tools:layout_editor_absoluteY="154dp"
-            android:gravity="center"/>
+            tools:text="Event" />
 
         <TextView
             android:id="@+id/myTest"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="188dp"
+            android:layout_height="128dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="156dp"
-            android:layout_marginTop="64dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="185dp"
+            android:layout_marginTop="38dp"
+            android:layout_marginEnd="11dp"
             android:fontFamily="@font/mukta_bold"
             android:lineSpacingExtra="1dp"
-            android:text="Add an event"
+            android:lineSpacingMultiplier="0.6"
+            android:text="How many days left"
+            android:textAlignment="viewEnd"
             android:textColor="@color/black"
             android:textSize="36dp" />
 
@@ -61,14 +68,14 @@
             android:id="@+id/button2"
             android:layout_width="223dp"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/button"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="169dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="171dp"
             android:background="@drawable/mybutton"
+            android:fontFamily="@font/mukta_bold"
             android:text="Add Date"
             android:textColor="@color/white"
-            android:fontFamily="@font/mukta_bold"
-            android:textSize="22dp"/>
+            android:textSize="22dp" />
 
         <TextView
             android:id="@+id/textView"
