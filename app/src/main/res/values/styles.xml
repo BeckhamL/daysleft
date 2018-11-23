@@ -8,4 +8,9 @@
         <item name="colorAccent">@color/blue</item>
     </style>
 
+    <style name="AppTheme.itemPopup">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+    </style>
+
 </resources>

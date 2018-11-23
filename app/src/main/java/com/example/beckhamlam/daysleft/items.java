@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-public class show extends AppCompatActivity {
+public class items extends AppCompatActivity {
 
     ArrayList<event> events;
 
@@ -44,7 +44,7 @@ public class show extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent newIntent = new Intent(show.this, MainActivity.class);
+                Intent newIntent = new Intent(items.this, MainActivity.class);
                 startActivity(newIntent);
             }
         });
@@ -112,4 +112,5 @@ public class show extends AppCompatActivity {
     public void onPause() {
         super.onPause();
     }
+
 }
