@@ -15,6 +15,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -50,22 +51,31 @@ public class show extends AppCompatActivity {
 
         try {
             Date date = getDateFormat(dateString);
-            Date currDate = getLocalDate();
-            String formattedDate = formatDate(date);
+            Date currDate = getCurrDate();
 
-            long difference = (getDateDiff(date, currDate) * - 1) + 1;
+            if (date.before(currDate)) {
+                Toast.makeText(this, "error", Toast.LENGTH_SHORT).show();
+            }
 
-            events = event.createEventList(new event(message, formattedDate, difference));
-            /*
-            events.add(new event("hello", "december", 230));
-            events.add(new event("hello", "december", 230));
-            events.add(new event("hello", "december", 230));
-            */
-            RecyclerView rvEvents = findViewById(R.id.rvEvents);
+            else {
 
-            eventAdapter eventAdapter = new eventAdapter(events, this);
-            rvEvents.setAdapter(eventAdapter);
-            rvEvents.setLayoutManager(new LinearLayoutManager(this));
+                String formattedDate = formatDate(date);
+
+                long difference = (getDateDiff(date, currDate) * - 1) + 1;
+
+                events = event.createEventList(new event(message, formattedDate, difference));
+                /*
+                events.add(new event("hello", "december", 230));
+                events.add(new event("hello", "december", 230));
+                events.add(new event("hello", "december", 230));
+                */
+                RecyclerView rvEvents = findViewById(R.id.rvEvents);
+
+                eventAdapter eventAdapter = new eventAdapter(events, this);
+                rvEvents.setAdapter(eventAdapter);
+                rvEvents.setLayoutManager(new LinearLayoutManager(this));
+
+            }
 
         } catch (ParseException e) {
             e.printStackTrace();
@@ -77,7 +87,7 @@ public class show extends AppCompatActivity {
         return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
     }
 
-    public static Date getLocalDate() {
+    public static Date getCurrDate() {
         return new Date();
     }
 
@@ -96,5 +106,10 @@ public class show extends AppCompatActivity {
     @Override
     public void onStop() {
         super.onStop();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
     }
 }
