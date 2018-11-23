@@ -2,6 +2,7 @@
 // TODO: fix bug where new list is made
 // TODO: save state for show
 // TODO: bug where date isnt displayed properly on recyclerview, seems to break saturday, wednesday and thursday
+// TODO: fix the UI for how the items are displayed
 
 package com.example.beckhamlam.daysleft;
 
@@ -64,11 +65,11 @@ public class items extends AppCompatActivity {
                 long difference = (getDateDiff(date, currDate) * - 1) + 1;
 
                 events = event.createEventList(new event(message, formattedDate, difference));
-                /*
-                events.add(new event("hello", "december", 230));
-                events.add(new event("hello", "december", 230));
-                events.add(new event("hello", "december", 230));
-                */
+
+                events.add(new event("g", "january", 7));
+                events.add(new event("d", "december", 21));
+                events.add(new event("e", "august", 18));
+
                 RecyclerView rvEvents = findViewById(R.id.rvEvents);
 
                 eventAdapter eventAdapter = new eventAdapter(events, this);

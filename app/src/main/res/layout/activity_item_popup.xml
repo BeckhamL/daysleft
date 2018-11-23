@@ -42,13 +42,21 @@
             android:layout_marginTop="59dp"
             android:text="TextView"
             tools:layout_editor_absoluteX="163dp"
-            tools:layout_editor_absoluteY="215dp" />
+            tools:layout_editor_absoluteY="215dp"
+            android:fontFamily="@font/mukta_medium"
+            android:textSize="35dp"
+            android:textColor="@color/black"/>
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="TextView" />
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="115dp"
+            android:fontFamily="@font/mukta_bold"
+            android:text="TextView"
+            android:textSize="80dp"
+            android:textColor="@color/black"/>
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

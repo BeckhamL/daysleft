@@ -21,7 +21,7 @@ public class itemPopup extends AppCompatActivity {
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         int width = dm.widthPixels;
         int height = dm.heightPixels;
-        getWindow().setLayout( (int) (width * 0.8), (int) (height * 0.5));
+        getWindow().setLayout( (int) (width * 0.8), (int) (height * 0.55));
 
         Button buttonEdit = findViewById(R.id.button3);
         Button buttonDelete = findViewById(R.id.button4);
