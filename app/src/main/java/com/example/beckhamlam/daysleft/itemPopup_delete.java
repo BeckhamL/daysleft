@@ -1,5 +1,6 @@
 package com.example.beckhamlam.daysleft;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,14 +10,13 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class itemPopup extends AppCompatActivity {
+public class itemPopup_delete extends AppCompatActivity {
 
-    public static final String message = "message";
-
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_item_popup);
+        setContentView(R.layout.activity_item_popup_delete);
         getSupportActionBar().hide();
 
         DisplayMetrics dm = new DisplayMetrics();
@@ -25,34 +25,29 @@ public class itemPopup extends AppCompatActivity {
         int height = dm.heightPixels;
         getWindow().setLayout( (int) (width * 0.8), (int) (height * 0.55));
 
-        Button buttonEdit = findViewById(R.id.button3);
-        Button buttonDelete = findViewById(R.id.button4);
-        TextView eventText = findViewById(R.id.textView2);
-        TextView daysLeftText = findViewById(R.id.textView3);
+        Button buttonCancel = findViewById(R.id.button5);
+        Button buttonDelete = findViewById(R.id.button6);
+        TextView textView = findViewById(R.id.textView4);
 
         Intent intent = getIntent();
-        final String event = intent.getStringExtra(eventAdapter.message);
-        String daysLeft = intent.getStringExtra(eventAdapter.daysLeft);
 
-        eventText.setText(event);
-        daysLeftText.setText(daysLeft);
+        String event = intent.getStringExtra(itemPopup.message);
 
-        buttonEdit.setOnClickListener(new View.OnClickListener() {
+        textView.setText(event);
+
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "edit", Toast.LENGTH_SHORT).show();
+//                Intent intent1 = new Intent(getApplicationContext(), itemPopup.class);
+//                startActivity(intent1);
             }
         });
 
         buttonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent intent1 = new Intent(getApplicationContext(), itemPopup_delete.class);
-                intent1.putExtra(message, event);
-                startActivity(intent1);
+                Toast.makeText(getApplicationContext(), "delete", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 }

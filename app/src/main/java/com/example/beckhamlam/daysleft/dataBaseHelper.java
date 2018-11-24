@@ -11,6 +11,7 @@ public class dataBaseHelper extends SQLiteOpenHelper {
     private static String TABLE_NAME = "events_table";
     private static String COL1 = "item_id";
     private static String COL2 = "formattedDate";
+    private static String COL3 = "difference";
 
     public dataBaseHelper(Context context) {
         super(context, TABLE_NAME, null, 1);
@@ -21,7 +22,8 @@ public class dataBaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TABLE_NAME + " (" +
                 COL1 + " TEXT PRIMARY KEY," +
-                COL2 + " TEXT)"
+                COL2 + " TEXT," +
+                COL3 + " Long)"
         );
     }
 
@@ -31,11 +33,12 @@ public class dataBaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean addData(String item, String formattedDate) {
+    public boolean addData(String item, String formattedDate, long difference) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL1, item);
         contentValues.put(COL2, formattedDate);
+        contentValues.put(COL3, difference);
 
         //Log.d(TAG, "addDate: adding " + item + "to" + TABLE_NAME);
         long result = db.insert(TABLE_NAME, null, contentValues);

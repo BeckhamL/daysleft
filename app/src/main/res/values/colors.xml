@@ -10,4 +10,5 @@
     <color name="black">#000000</color>
     <color name="pink">#FF0266</color>
     <color name="popup_gray">#cdd2d8</color>
+    <color name="deleteRed">#ec0000</color>
 </resources>

@@ -26,6 +26,7 @@ import java.util.concurrent.TimeUnit;
 public class items extends AppCompatActivity {
 
     ArrayList<event> events;
+    dataBaseHelper dataBaseHelper = new dataBaseHelper(this);
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @SuppressLint({"SetTextI18n", "SimpleDateFormat", "DefaultLocale", "ShowToast"})
@@ -65,6 +66,7 @@ public class items extends AppCompatActivity {
                 long difference = (getDateDiff(date, currDate) * - 1) + 1;
 
                 events = event.createEventList(new event(message, formattedDate, difference));
+                dataBaseHelper.addData(message, formattedDate, difference);
 
                 /*
                 events.add(new event("g", "january", 7));
