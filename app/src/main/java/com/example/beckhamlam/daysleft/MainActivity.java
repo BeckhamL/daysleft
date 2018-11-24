@@ -21,11 +21,14 @@ public class MainActivity extends AppCompatActivity {
     Calendar cal;
     String tDate;
 
+    dataBaseHelper dataBaseHelper = new dataBaseHelper(this);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
+
 
         Button selectDate = findViewById(R.id.button2);
 
@@ -51,11 +54,25 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, items.class);
         TextView editText = findViewById(R.id.editText);
         String messageTextView = editText.getText().toString();
+
+        // Add data into database
+        addData(messageTextView, tDate);
         intent.putExtra(sDate, tDate);
         intent.putExtra(message, messageTextView);
         startActivity(intent);
 
         Toast toast = Toast.makeText(getApplicationContext(), "Event added!", Toast.LENGTH_SHORT);
         toast.show();
+    }
+
+    public void addData(String event, String formattedDate) {
+        boolean insertDate = dataBaseHelper.addData(event, formattedDate);
+
+        if (insertDate) {
+            Toast.makeText(this, "Successfully added", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Toast.makeText(this, "failed added", Toast.LENGTH_SHORT).show();
+        }
     }
 }

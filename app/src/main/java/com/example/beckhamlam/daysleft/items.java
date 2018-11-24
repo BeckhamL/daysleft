@@ -66,9 +66,11 @@ public class items extends AppCompatActivity {
 
                 events = event.createEventList(new event(message, formattedDate, difference));
 
+                /*
                 events.add(new event("g", "january", 7));
                 events.add(new event("d", "december", 21));
                 events.add(new event("e", "august", 18));
+                */
 
                 RecyclerView rvEvents = findViewById(R.id.rvEvents);
 
