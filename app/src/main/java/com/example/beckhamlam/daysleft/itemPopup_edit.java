@@ -26,6 +26,7 @@ public class itemPopup_edit extends AppCompatActivity {
     int month;
     int year;
     Date formattedDate_date;
+    dataBaseHelper dataBaseHelper = new dataBaseHelper(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +41,7 @@ public class itemPopup_edit extends AppCompatActivity {
         getWindow().setLayout( (int) (width * 0.8), (int) (height * 0.55));
 
         Intent intent = getIntent();
-        String event = intent.getStringExtra(itemPopup.message);
+        final String event = intent.getStringExtra(itemPopup.message);
         String formattedDate_string = intent.getStringExtra(itemPopup.message1);
 
         try {
@@ -58,7 +59,7 @@ public class itemPopup_edit extends AppCompatActivity {
 
         Button buttonCancel = findViewById(R.id.button7);
         Button buttonUpdate = findViewById(R.id.button8);
-        EditText editEventName = findViewById(R.id.editText3);
+        final EditText editEventName = findViewById(R.id.editText3);
         TextView editDate = findViewById(R.id.editText2);
 
         editEventName.setText(event, TextView.BufferType.EDITABLE);
@@ -87,6 +88,9 @@ public class itemPopup_edit extends AppCompatActivity {
         buttonUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String item = editEventName.getText().toString();
+                dataBaseHelper.updateEvent(item, event);
+                finish();
 
             }
         });

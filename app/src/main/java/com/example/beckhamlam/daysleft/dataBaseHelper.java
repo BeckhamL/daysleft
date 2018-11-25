@@ -40,7 +40,6 @@ public class dataBaseHelper extends SQLiteOpenHelper {
         contentValues.put(COL2, formattedDate);
         contentValues.put(COL3, difference);
 
-        //Log.d(TAG, "addDate: adding " + item + "to" + TABLE_NAME);
         long result = db.insert(TABLE_NAME, null, contentValues);
 
         if (result == -1) {
@@ -54,7 +53,7 @@ public class dataBaseHelper extends SQLiteOpenHelper {
     public Cursor getData() {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
 
-        Cursor data = sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+        Cursor data = sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE_NAME + " ORDER BY " + COL3 + " DESC", null);
         return data;
     }
 
@@ -62,5 +61,11 @@ public class dataBaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "DELETE FROM " + TABLE_NAME + " WHERE " + COL1 + " = '" + event + "'";
         db.execSQL(query);
+    }
+
+    public void updateEvent(String newEvent, String oldEvent) {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        String query = "UPDATE " + TABLE_NAME + " SET " + COL1 + " = '" + newEvent + "' WHERE " + COL1 + " = '" + oldEvent + "'";
+        sqLiteDatabase.execSQL(query);
     }
 }
