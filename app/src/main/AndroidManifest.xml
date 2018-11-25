@@ -29,8 +29,11 @@
         </activity>
         <activity
             android:name=".itemPopup"
-            android:theme="@style/AppTheme.itemPopup"></activity>
-        <activity android:name=".itemPopup_delete"
+            android:theme="@style/AppTheme.itemPopup" />
+        <activity
+            android:name=".itemPopup_delete"
+            android:theme="@style/AppTheme.itemPopup" />
+        <activity android:name=".itemPopup_edit"
             android:theme="@style/AppTheme.itemPopup"></activity>
     </application>
 

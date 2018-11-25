@@ -59,15 +59,4 @@ public class MainActivity extends AppCompatActivity {
         Toast toast = Toast.makeText(getApplicationContext(), "Event added!", Toast.LENGTH_SHORT);
         toast.show();
     }
-
-//    public void addData(String event, String formattedDate) {
-//        boolean insertDate = dataBaseHelper.addData(event, formattedDate);
-//
-//        if (insertDate) {
-//            Toast.makeText(this, "Successfully added", Toast.LENGTH_SHORT).show();
-//        }
-//        else {
-//            Toast.makeText(this, "failed added", Toast.LENGTH_SHORT).show();
-//        }
-//    }
 }

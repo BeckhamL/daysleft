@@ -1,8 +1,8 @@
 // TODO: validate whether date user inputted is after currDate
-// TODO: fix bug where new list is made
 // TODO: save state for show
 // TODO: bug where date isnt displayed properly on recyclerview, seems to break saturday, wednesday and thursday
 // TODO: fix the UI for how the items are displayed
+// TODO: keyboard click outside to close
 
 package com.example.beckhamlam.daysleft;
 

@@ -56,7 +56,6 @@ public class dataBaseHelper extends SQLiteOpenHelper {
 
         Cursor data = sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE_NAME, null);
         return data;
-
     }
 
     public void deleteEvent(String event) {

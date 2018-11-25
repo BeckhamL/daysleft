@@ -17,6 +17,7 @@ public class eventAdapter extends RecyclerView.Adapter<eventAdapter.ViewHolder> 
     private Context context;
     public static final String message = "message";
     public static final String daysLeft = "daysLeft";
+    public static final String formattedDate = "formattedDate";
 
     public eventAdapter(ArrayList<event> events, Context context) {
         this.events = events;
@@ -43,6 +44,7 @@ public class eventAdapter extends RecyclerView.Adapter<eventAdapter.ViewHolder> 
             Intent intent = new Intent(context, itemPopup.class);
             intent.putExtra(message, event.getEvent());
             intent.putExtra(daysLeft, String.valueOf(event.getDaysLeft()));
+            intent.putExtra(formattedDate, event.getFormattedDate());
             context.startActivity(intent);
         }
     }

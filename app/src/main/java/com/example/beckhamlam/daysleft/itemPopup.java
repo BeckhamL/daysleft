@@ -12,6 +12,7 @@ import android.widget.Toast;
 public class itemPopup extends AppCompatActivity {
 
     public static final String message = "message";
+    public static final String message1 = "formattedDate";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,7 @@ public class itemPopup extends AppCompatActivity {
         Intent intent = getIntent();
         final String event = intent.getStringExtra(eventAdapter.message);
         String daysLeft = intent.getStringExtra(eventAdapter.daysLeft);
+        final String formattedDate = intent.getStringExtra(eventAdapter.formattedDate);
 
         eventText.setText(event);
         daysLeftText.setText(daysLeft);
@@ -40,7 +42,10 @@ public class itemPopup extends AppCompatActivity {
         buttonEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "edit", Toast.LENGTH_SHORT).show();
+                Intent intent2 = new Intent(getApplicationContext(), itemPopup_edit.class);
+                intent2.putExtra(message, event);
+                intent2.putExtra(message1, formattedDate);
+                startActivity(intent2);
             }
         });
 
