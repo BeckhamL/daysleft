@@ -27,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
 
-
         Button selectDate = findViewById(R.id.button2);
 
         selectDate.setOnClickListener(new View.OnClickListener() {

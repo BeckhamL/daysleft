@@ -58,4 +58,10 @@ public class dataBaseHelper extends SQLiteOpenHelper {
         return data;
 
     }
+
+    public void deleteEvent(String event) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "DELETE FROM " + TABLE_NAME + " WHERE " + COL1 + " = '" + event + "'";
+        db.execSQL(query);
+    }
 }

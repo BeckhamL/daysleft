@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 public class itemPopup_delete extends AppCompatActivity {
 
+    dataBaseHelper dataBaseHelper = new dataBaseHelper(this);
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,22 +32,22 @@ public class itemPopup_delete extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        String event = intent.getStringExtra(itemPopup.message);
+        final String event = intent.getStringExtra(itemPopup.message);
 
         textView.setText(event);
 
         buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent1 = new Intent(getApplicationContext(), itemPopup.class);
-//                startActivity(intent1);
+                finish();
             }
         });
 
         buttonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "delete", Toast.LENGTH_SHORT).show();
+                dataBaseHelper.deleteEvent(event);
+                finish();
             }
         });
     }
