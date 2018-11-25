@@ -18,6 +18,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class itemPopup_edit extends AppCompatActivity {
 
@@ -26,7 +27,9 @@ public class itemPopup_edit extends AppCompatActivity {
     int month;
     int year;
     Date formattedDate_date;
+    Date currDate = getCurrDate();
     dataBaseHelper dataBaseHelper = new dataBaseHelper(this);
+    Date dateUpdate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +45,7 @@ public class itemPopup_edit extends AppCompatActivity {
 
         Intent intent = getIntent();
         final String event = intent.getStringExtra(itemPopup.message);
-        String formattedDate_string = intent.getStringExtra(itemPopup.message1);
+        final String formattedDate_string = intent.getStringExtra(itemPopup.message1);
 
         try {
             formattedDate_date = getDateFromString(formattedDate_string);
@@ -60,7 +63,7 @@ public class itemPopup_edit extends AppCompatActivity {
         Button buttonCancel = findViewById(R.id.button7);
         Button buttonUpdate = findViewById(R.id.button8);
         final EditText editEventName = findViewById(R.id.editText3);
-        TextView editDate = findViewById(R.id.editText2);
+        final TextView editDate = findViewById(R.id.editText2);
 
         editEventName.setText(event, TextView.BufferType.EDITABLE);
         editDate.setText(formattedDate_string, TextView.BufferType.EDITABLE);
@@ -78,6 +81,8 @@ public class itemPopup_edit extends AppCompatActivity {
             }
         });
 
+        editDate.setText(tDate);
+
         buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,7 +94,19 @@ public class itemPopup_edit extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String item = editEventName.getText().toString();
-                dataBaseHelper.updateEvent(item, event);
+
+                try {
+                    dateUpdate = getDateFormat(tDate);
+
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT).show();
+                }
+
+                editDate.setText(tDate);
+                long difference = (getDateDiff(currDate, dateUpdate)) + 1;
+                String newFormattedDate = formatDate(dateUpdate);
+                dataBaseHelper.updateEvent(item, event, newFormattedDate, difference);
                 finish();
 
             }
@@ -101,4 +118,26 @@ public class itemPopup_edit extends AppCompatActivity {
         Date date = format.parse(s);
         return date;
     }
+
+    public static Date getDateFormat(String s) throws ParseException {
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat parser = new SimpleDateFormat("dd/MM/yyyy");
+
+        return parser.parse(s);
+    }
+
+    public static long getDateDiff(Date date1, Date date2) {
+        long diff = date2.getTime() - date1.getTime();
+        return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+    }
+
+    public static Date getCurrDate() {
+        return new Date();
+    }
+
+    public static String formatDate(Date date) {
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("EEEE, MMM dd, yyy");
+
+        return formatter.format(date);
+    }
+
 }

@@ -3,6 +3,7 @@
 // TODO: bug where date isnt displayed properly on recyclerview, seems to break saturday, wednesday and thursday
 // TODO: fix the UI for how the items are displayed
 // TODO: keyboard click outside to close
+// TODO: editing event, the new date difference is not being populated correctly in database
 
 package com.example.beckhamlam.daysleft;
 

@@ -63,9 +63,9 @@ public class dataBaseHelper extends SQLiteOpenHelper {
         db.execSQL(query);
     }
 
-    public void updateEvent(String newEvent, String oldEvent) {
+    public void updateEvent(String newEvent, String oldEvent, String newFormattedDate, long difference) {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-        String query = "UPDATE " + TABLE_NAME + " SET " + COL1 + " = '" + newEvent + "' WHERE " + COL1 + " = '" + oldEvent + "'";
+        String query = "UPDATE " + TABLE_NAME + " SET " + COL1 + " = '" + newEvent + "', " + COL2 + " = '" + newFormattedDate + "', " + COL3 + " = '" + difference + "' WHERE " + COL1 + " = '" + oldEvent + "';";
         sqLiteDatabase.execSQL(query);
     }
 }
