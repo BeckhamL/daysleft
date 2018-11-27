@@ -64,7 +64,7 @@ public class items extends AppCompatActivity {
 
                 String formattedDate = formatDate(date);
 
-                long difference = (getDateDiff(date, currDate) * - 1) + 1;
+                long difference = (getDateDiff(currDate, date)) + 1;
 
                 events = event.createEventList(new event(message, formattedDate, difference));
                 dataBaseHelper.addData(message, formattedDate, difference);

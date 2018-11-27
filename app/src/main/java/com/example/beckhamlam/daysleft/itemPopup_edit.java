@@ -27,7 +27,6 @@ public class itemPopup_edit extends AppCompatActivity {
     int month;
     int year;
     Date formattedDate_date;
-    Date currDate = getCurrDate();
     dataBaseHelper dataBaseHelper = new dataBaseHelper(this);
     Date dateUpdate;
 
@@ -94,20 +93,21 @@ public class itemPopup_edit extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String item = editEventName.getText().toString();
-
+                editDate.setText(tDate);
                 try {
                     dateUpdate = getDateFormat(tDate);
+                    Date currDate = getCurrDate();
+
+                    //editDate.setText(tDate);
+                    long difference = (getDateDiff(currDate, dateUpdate)) + 1;
+                    String newFormattedDate = formatDate(dateUpdate);
+                    dataBaseHelper.updateEvent(item, event, newFormattedDate, difference);
+                    finish();
 
                 } catch (ParseException e) {
                     e.printStackTrace();
                     Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT).show();
                 }
-
-                editDate.setText(tDate);
-                long difference = (getDateDiff(currDate, dateUpdate)) + 1;
-                String newFormattedDate = formatDate(dateUpdate);
-                dataBaseHelper.updateEvent(item, event, newFormattedDate, difference);
-                finish();
 
             }
         });
