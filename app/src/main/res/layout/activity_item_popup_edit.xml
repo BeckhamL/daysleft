@@ -23,7 +23,9 @@
             android:text="Name"
             tools:layout_editor_absoluteX="84dp"
             tools:layout_editor_absoluteY="111dp"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="20dp"/>
 
         <EditText
             android:id="@+id/editText3"

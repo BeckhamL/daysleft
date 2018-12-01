@@ -80,8 +80,6 @@ public class itemPopup_edit extends AppCompatActivity {
             }
         });
 
-        editDate.setText(tDate);
-
         buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
