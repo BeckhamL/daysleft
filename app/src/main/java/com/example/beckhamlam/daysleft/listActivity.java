@@ -1,56 +1,43 @@
-// TODO: validate whether date user inputted is after currDate
-// TODO: save state for show
-// TODO: bug where date isnt displayed properly on recyclerview, seems to break saturday, wednesday and thursday
-// TODO: fix the UI for how the items are displayed
-// TODO: keyboard click outside to close
-// TODO: editing event, the new date difference is not being populated correctly in database
-
 package com.example.beckhamlam.daysleft;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
+import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-public class items extends AppCompatActivity {
+public class listActivity extends AppCompatActivity {
 
-    ArrayList<event> events;
     dataBaseHelper dataBaseHelper = new dataBaseHelper(this);
+    public static final String message1 = "message";
+    public static final String daysLeft = "daysLeft";
+    public static final String formattedDate = "formattedDate";
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    @SuppressLint({"SetTextI18n", "SimpleDateFormat", "DefaultLocale", "ShowToast"})
+    ListView listView;
+    ArrayList<event> events;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show);
-        getSupportActionBar().hide();
+        setContentView(R.layout.activity_list);
+        listView = findViewById(R.id.listView);
+        populateListView();
 
         Intent intent = getIntent();
-        String dateString = intent.getStringExtra(MainActivity.sDate);
-        String message = intent.getStringExtra(MainActivity.message);
-
-        Button button = findViewById(R.id.addNew);
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent newIntent = new Intent(items.this, MainActivity.class);
-                startActivity(newIntent);
-            }
-        });
+        final String dateString = intent.getStringExtra(MainActivity.sDate);
+        final String message = intent.getStringExtra(MainActivity.message);
 
         try {
             Date date = getDateFormat(dateString);
@@ -69,17 +56,35 @@ public class items extends AppCompatActivity {
                 events = event.createEventList(new event(message, formattedDate, difference));
                 dataBaseHelper.addData(message, formattedDate, difference);
 
-                RecyclerView rvEvents = findViewById(R.id.rvEvents);
-
-                eventAdapter eventAdapter = new eventAdapter(events, this);
-                rvEvents.setAdapter(eventAdapter);
-                rvEvents.setLayoutManager(new LinearLayoutManager(this));
-
             }
 
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                event event = events.get(position);
+                Intent intent = new Intent(getApplicationContext(), itemPopup.class);
+                intent.putExtra(message1, event.getEvent());
+                intent.putExtra(daysLeft, String.valueOf(event.getDaysLeft()));
+                intent.putExtra(formattedDate, event.getFormattedDate());
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void populateListView() {
+        Cursor data = dataBaseHelper.getData();
+        ArrayList<String> list = new ArrayList<>();
+        while (data.moveToNext()) {
+            list.add(data.getString(0));
+        }
+
+        ListAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, list);
+        listView.setAdapter(adapter);
     }
 
     public static long getDateDiff(Date date1, Date date2) {
@@ -101,16 +106,6 @@ public class items extends AppCompatActivity {
         @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("EEEE, MMM dd, yyy");
 
         return formatter.format(date);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
     }
 
 }

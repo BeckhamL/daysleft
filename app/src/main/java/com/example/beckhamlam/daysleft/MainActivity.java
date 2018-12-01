@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void sendMessage(View view) {
-        Intent intent = new Intent(this, items.class);
+        Intent intent = new Intent(this, listActivity.class);
         TextView editText = findViewById(R.id.editText);
         String messageTextView = editText.getText().toString();
 

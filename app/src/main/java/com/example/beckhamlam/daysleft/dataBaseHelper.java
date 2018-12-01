@@ -12,7 +12,7 @@ public class dataBaseHelper extends SQLiteOpenHelper {
     private static String COL1 = "item_id";
     private static String COL2 = "formattedDate";
     private static String COL3 = "difference";
-    private static String[] columnNames = {COL1, COL2, COL3};
+    //private static String[] columnNames = {COL1, COL2, COL3};
 
     public dataBaseHelper(Context context) {
         super(context, TABLE_NAME, null, 1);
@@ -54,7 +54,7 @@ public class dataBaseHelper extends SQLiteOpenHelper {
     public Cursor getData() {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
 
-        Cursor data = sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE_NAME + " ORDER BY " + COL3 + " ASC", null);
+        Cursor data = sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE_NAME, null);
         return data;
     }
 
