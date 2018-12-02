@@ -32,4 +32,15 @@ public class event {
         return list;
     }
 
+    public void setDaysLeft(long daysLeft) {
+        this.daysLeft = daysLeft;
+    }
+
+    public void setEvent(String event) {
+        this.event = event;
+    }
+
+    public void setFormattedDate(String formattedDate) {
+        this.formattedDate = formattedDate;
+    }
 }

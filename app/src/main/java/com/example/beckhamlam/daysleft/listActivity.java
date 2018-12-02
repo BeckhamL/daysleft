@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -27,13 +28,13 @@ public class listActivity extends AppCompatActivity {
 
     ListView listView;
     ArrayList<event> events;
+    event currEvent = new event("","",0);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
         listView = findViewById(R.id.listView);
-        populateListView();
 
         Intent intent = getIntent();
         final String dateString = intent.getStringExtra(MainActivity.sDate);
@@ -53,7 +54,12 @@ public class listActivity extends AppCompatActivity {
 
                 long difference = (getDateDiff(currDate, date)) + 1;
 
-                events = event.createEventList(new event(message, formattedDate, difference));
+                currEvent.setDaysLeft(difference);
+                currEvent.setEvent(message);
+                currEvent.setFormattedDate(formattedDate);
+
+                //events.add(currEvent);
+                events = event.createEventList(currEvent);
                 dataBaseHelper.addData(message, formattedDate, difference);
 
             }
@@ -66,24 +72,30 @@ public class listActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                event event = events.get(position);
-                Intent intent = new Intent(getApplicationContext(), itemPopup.class);
-                intent.putExtra(message1, event.getEvent());
-                intent.putExtra(daysLeft, String.valueOf(event.getDaysLeft()));
-                intent.putExtra(formattedDate, event.getFormattedDate());
-                startActivity(intent);
+                Toast.makeText(getApplicationContext(), String.valueOf(position), Toast.LENGTH_SHORT).show();
+//                event event = events.get(position);
+//                Intent intent = new Intent(getApplicationContext(), itemPopup.class);
+//                intent.putExtra(message1, event.getEvent());
+//                intent.putExtra(daysLeft, String.valueOf(event.getDaysLeft()));
+//                intent.putExtra(formattedDate, event.getFormattedDate());
+//                startActivity(intent);
             }
         });
+
+        populateListView();
     }
 
     private void populateListView() {
         Cursor data = dataBaseHelper.getData();
         ArrayList<String> list = new ArrayList<>();
+
         while (data.moveToNext()) {
-            list.add(data.getString(0));
+            list.add(data.getString(0) + " " + data.getString(2));
         }
 
+
         ListAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, list);
+        ((ArrayAdapter) adapter).notifyDataSetChanged();
         listView.setAdapter(adapter);
     }
 
@@ -106,6 +118,17 @@ public class listActivity extends AppCompatActivity {
         @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("EEEE, MMM dd, yyy");
 
         return formatter.format(date);
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        events.clear();
+        dataBaseHelper = new dataBaseHelper(this);
+        eventAdapter eventAdapter = new eventAdapter(events, this);
+
+        eventAdapter.notifyDataSetChanged();
+
     }
 
 }

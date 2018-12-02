@@ -69,4 +69,9 @@ public class dataBaseHelper extends SQLiteOpenHelper {
         String query = "UPDATE " + TABLE_NAME + " SET " + COL1 + " = '" + newEvent + "', " + COL2 + " = '" + newFormattedDate + "', " + COL3 + " = '" + difference + "' WHERE " + COL1 + " = '" + oldEvent + "';";
         sqLiteDatabase.execSQL(query);
     }
+
+    public void getNthRow(int position) {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        //String query = "SELECT * FROM" + TABLE_NAME +
+    }
 }

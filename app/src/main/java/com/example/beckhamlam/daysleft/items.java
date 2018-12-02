@@ -28,6 +28,7 @@ public class items extends AppCompatActivity {
 
     ArrayList<event> events;
     dataBaseHelper dataBaseHelper = new dataBaseHelper(this);
+    event currEvent = new event("","",0);
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @SuppressLint({"SetTextI18n", "SimpleDateFormat", "DefaultLocale", "ShowToast"})
@@ -66,12 +67,19 @@ public class items extends AppCompatActivity {
 
                 long difference = (getDateDiff(currDate, date)) + 1;
 
-                events = event.createEventList(new event(message, formattedDate, difference));
+                currEvent.setDaysLeft(difference);
+                currEvent.setEvent(message);
+                currEvent.setFormattedDate(formattedDate);
+
+                events = event.createEventList(currEvent);
+
+                //events = event.createEventList(new event(message, formattedDate, difference));
                 dataBaseHelper.addData(message, formattedDate, difference);
 
                 RecyclerView rvEvents = findViewById(R.id.rvEvents);
 
                 eventAdapter eventAdapter = new eventAdapter(events, this);
+                eventAdapter.notifyDataSetChanged();
                 rvEvents.setAdapter(eventAdapter);
                 rvEvents.setLayoutManager(new LinearLayoutManager(this));
 

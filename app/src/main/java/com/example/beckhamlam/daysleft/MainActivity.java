@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         Button selectDate = findViewById(R.id.button2);
+        Button viewEvents = findViewById(R.id.button9);
 
         selectDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,5 +59,10 @@ public class MainActivity extends AppCompatActivity {
 
         Toast toast = Toast.makeText(getApplicationContext(), "Event added!", Toast.LENGTH_SHORT);
         toast.show();
+    }
+
+    public void viewEvents(View view) {
+        Intent intent = new Intent(this, listActivity.class);
+        startActivity(intent);
     }
 }
