@@ -12,6 +12,8 @@ import android.widget.Toast;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -54,7 +56,6 @@ public class listActivity extends AppCompatActivity {
                 currEvent.setEvent(message);
                 currEvent.setFormattedDate(formattedDate);
 
-                //events.add(currEvent);
                 events = event.createEventList(currEvent);
                 dataBaseHelper.addData(message, formattedDate, difference);
 
@@ -85,7 +86,13 @@ public class listActivity extends AppCompatActivity {
 
         ArrayList<event> list = dataBaseHelper.getEvents();
 
-
+        // Sort the array ascending by days left
+        Collections.sort(list, new Comparator<event>() {
+            @Override
+            public int compare(event o1, event o2) {
+                return (int) (o1.getDaysLeft() - o2.getDaysLeft());
+            }
+        });
 
         listAdapter listAdapter = new listAdapter(this, R.layout.listview_items, list);
         listView.setAdapter(listAdapter);
