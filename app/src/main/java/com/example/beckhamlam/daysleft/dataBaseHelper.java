@@ -6,13 +6,14 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+
 public class dataBaseHelper extends SQLiteOpenHelper {
 
     private static String TABLE_NAME = "events_table";
     private static String COL1 = "item_id";
     private static String COL2 = "formattedDate";
     private static String COL3 = "difference";
-    //private static String[] columnNames = {COL1, COL2, COL3};
 
     public dataBaseHelper(Context context) {
         super(context, TABLE_NAME, null, 1);
@@ -70,8 +71,23 @@ public class dataBaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(query);
     }
 
-    public void getNthRow(int position) {
+    public ArrayList<event> getEvents() {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-        //String query = "SELECT * FROM" + TABLE_NAME +
+        ArrayList<event> list = new ArrayList<>();
+
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE_NAME, null );
+
+        while (cursor.moveToNext()) {
+
+            String eventName = cursor.getString(0);
+            String formattedDate = cursor.getString(1);
+            long difference = cursor.getLong(2);
+
+            event event = new event(eventName, formattedDate, difference);
+
+            list.add(event);
+        }
+
+        return list;
     }
 }

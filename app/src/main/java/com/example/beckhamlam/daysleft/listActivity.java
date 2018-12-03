@@ -2,14 +2,10 @@ package com.example.beckhamlam.daysleft;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -68,6 +64,8 @@ public class listActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        populateListView();
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -81,22 +79,16 @@ public class listActivity extends AppCompatActivity {
 //                startActivity(intent);
             }
         });
-
-        populateListView();
     }
 
     private void populateListView() {
-        Cursor data = dataBaseHelper.getData();
-        ArrayList<String> list = new ArrayList<>();
 
-        while (data.moveToNext()) {
-            list.add(data.getString(0) + " " + data.getString(2));
-        }
+        ArrayList<event> list = dataBaseHelper.getEvents();
 
 
-        ListAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, list);
-        ((ArrayAdapter) adapter).notifyDataSetChanged();
-        listView.setAdapter(adapter);
+
+        listAdapter listAdapter = new listAdapter(this, R.layout.listview_items, list);
+        listView.setAdapter(listAdapter);
     }
 
     public static long getDateDiff(Date date1, Date date2) {

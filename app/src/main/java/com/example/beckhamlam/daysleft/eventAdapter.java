@@ -80,7 +80,6 @@ public class eventAdapter extends RecyclerView.Adapter<eventAdapter.ViewHolder> 
         return events.size();
     }
 
-
     public void updateList(ArrayList<event> list) {
         events.clear();
         events.addAll(list);
