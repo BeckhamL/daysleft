@@ -47,7 +47,6 @@
             android:layout_marginBottom="2dp"
             android:fontFamily="@font/mukta_regular"
             android:gravity="left"
-            android:text="TextView"
             android:textColor="@color/black" />
     </RelativeLayout>
 

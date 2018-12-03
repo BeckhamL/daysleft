@@ -4,6 +4,7 @@
 // TODO: fix the UI for how the items are displayed
 // TODO: keyboard click outside to close
 // TODO: editing event, the new date difference is not being populated correctly in database
+// TODO: implement slide to update listview
 
 package com.example.beckhamlam.daysleft;
 

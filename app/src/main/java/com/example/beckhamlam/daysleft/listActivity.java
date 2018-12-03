@@ -27,6 +27,7 @@ public class listActivity extends AppCompatActivity {
     ListView listView;
     ArrayList<event> events;
     event currEvent = new event("","",0);
+    listAdapter listAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,13 +72,13 @@ public class listActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Toast.makeText(getApplicationContext(), String.valueOf(position), Toast.LENGTH_SHORT).show();
-//                event event = events.get(position);
-//                Intent intent = new Intent(getApplicationContext(), itemPopup.class);
-//                intent.putExtra(message1, event.getEvent());
-//                intent.putExtra(daysLeft, String.valueOf(event.getDaysLeft()));
-//                intent.putExtra(formattedDate, event.getFormattedDate());
-//                startActivity(intent);
+                event newEvents = listAdapter.getItem(position);
+
+                Intent intent = new Intent(getApplicationContext(), itemPopup.class);
+                intent.putExtra(message1, newEvents.getEvent());
+                intent.putExtra(daysLeft, String.valueOf(newEvents.getDaysLeft()));
+                intent.putExtra(formattedDate, newEvents.getFormattedDate());
+                startActivity(intent);
             }
         });
     }
@@ -94,7 +95,7 @@ public class listActivity extends AppCompatActivity {
             }
         });
 
-        listAdapter listAdapter = new listAdapter(this, R.layout.listview_items, list);
+        listAdapter = new listAdapter(this, R.layout.listview_items, list);
         listView.setAdapter(listAdapter);
     }
 
