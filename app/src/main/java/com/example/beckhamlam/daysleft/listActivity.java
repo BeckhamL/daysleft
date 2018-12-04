@@ -2,6 +2,7 @@ package com.example.beckhamlam.daysleft;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -35,7 +36,9 @@ public class listActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list);
         listView = findViewById(R.id.listView);
 
-        Intent intent = getIntent();
+        FloatingActionButton floatingActionButton = findViewById(R.id.fab);
+
+        final Intent intent = getIntent();
         final String dateString = intent.getStringExtra(MainActivity.sDate);
         final String message = intent.getStringExtra(MainActivity.message);
 
@@ -79,6 +82,14 @@ public class listActivity extends AppCompatActivity {
                 intent.putExtra(daysLeft, String.valueOf(newEvents.getDaysLeft()));
                 intent.putExtra(formattedDate, newEvents.getFormattedDate());
                 startActivity(intent);
+            }
+        });
+
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1 = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent1);
             }
         });
     }
@@ -130,5 +141,4 @@ public class listActivity extends AppCompatActivity {
         eventAdapter.notifyDataSetChanged();
 
     }
-
 }

@@ -30,7 +30,8 @@
             android:textColor="@color/white"
             android:textSize="22dp"
             tools:layout_editor_absoluteX="148dp"
-            tools:layout_editor_absoluteY="231dp" />
+            tools:layout_editor_absoluteY="231dp"
+            android:drawableLeft="@drawable/ic_outline_check_24px"/>
 
         <EditText
             android:id="@+id/editText"
@@ -76,7 +77,8 @@
             android:fontFamily="@font/mukta_bold"
             android:text="Add Date"
             android:textColor="@color/white"
-            android:textSize="22dp" />
+            android:textSize="22dp"
+            android:drawableLeft="@drawable/ic_outline_calendar_today_24px"/>
 
         <TextView
             android:id="@+id/textView"
