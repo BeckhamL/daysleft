@@ -112,13 +112,7 @@ public class listActivity extends AppCompatActivity {
 
         list = dataBaseHelper.getEvents();
 
-        // Sort the array ascending by days left
-        Collections.sort(list, new Comparator<event>() {
-            @Override
-            public int compare(event o1, event o2) {
-                return (int) (o1.getDaysLeft() - o2.getDaysLeft());
-            }
-        });
+        sortList(list);
 
         listAdapter = new listAdapter(this, R.layout.listview_items, list);
         listView.setAdapter(listAdapter);
@@ -158,5 +152,14 @@ public class listActivity extends AppCompatActivity {
 
     public static ArrayList<event> getList() {
         return list;
+    }
+
+    public static void sortList(ArrayList<event> list) {
+        Collections.sort(list, new Comparator<event>() {
+            @Override
+            public int compare(event o1, event o2) {
+                return (int) (o1.getDaysLeft() - o2.getDaysLeft());
+            }
+        });
     }
 }

@@ -11,12 +11,13 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -29,6 +30,8 @@ public class itemPopup_edit extends AppCompatActivity {
     Date formattedDate_date;
     dataBaseHelper dataBaseHelper = new dataBaseHelper(this);
     Date dateUpdate;
+    String newFormattedDate = "";
+    long difference = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +48,7 @@ public class itemPopup_edit extends AppCompatActivity {
         Intent intent = getIntent();
         final String event = intent.getStringExtra(itemPopup.message);
         final String formattedDate_string = intent.getStringExtra(itemPopup.message1);
+        final int position = intent.getIntExtra(itemPopup.positionNum, 0);
 
         try {
             formattedDate_date = getDateFromString(formattedDate_string);
@@ -90,22 +94,38 @@ public class itemPopup_edit extends AppCompatActivity {
         buttonUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String item = editEventName.getText().toString();
                 editDate.setText(tDate);
+
                 try {
                     dateUpdate = getDateFormat(tDate);
                     Date currDate = getCurrDate();
 
-                    //editDate.setText(tDate);
-                    long difference = (getDateDiff(currDate, dateUpdate)) + 1;
-                    String newFormattedDate = formatDate(dateUpdate);
+                    difference = (getDateDiff(currDate, dateUpdate)) + 1;
+                    newFormattedDate = formatDate(dateUpdate);
                     dataBaseHelper.updateEvent(item, event, newFormattedDate, difference);
                     finish();
 
                 } catch (ParseException e) {
                     e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT).show();
                 }
+
+                ArrayList<event> list = listActivity.getList();
+                event current = list.get(position);
+                list.remove(position);
+
+                current.setEvent(item);
+                current.setFormattedDate(newFormattedDate);
+                current.setDaysLeft(difference);
+
+                list.add(current);
+
+                sortList(list);
+
+                listActivity.setList(list);
+                finish();
+                itemPopup.getInstance().finish();
 
             }
         });
@@ -136,6 +156,15 @@ public class itemPopup_edit extends AppCompatActivity {
         @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("EEEE, MMM dd, yyy");
 
         return formatter.format(date);
+    }
+
+    public static void sortList(ArrayList<event> list) {
+        Collections.sort(list, new Comparator<event>() {
+            @Override
+            public int compare(event o1, event o2) {
+                return (int) (o1.getDaysLeft() - o2.getDaysLeft());
+            }
+        });
     }
 
 }

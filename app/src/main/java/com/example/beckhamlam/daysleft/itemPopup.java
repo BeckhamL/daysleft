@@ -19,8 +19,6 @@ public class itemPopup extends AppCompatActivity {
     public static final String positionNum = "positionNum";
     static itemPopup itemPopup;
 
-    dataBaseHelper dataBaseHelper = new dataBaseHelper(this);
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +53,7 @@ public class itemPopup extends AppCompatActivity {
                 Intent intent2 = new Intent(getApplicationContext(), itemPopup_edit.class);
                 intent2.putExtra(message, event);
                 intent2.putExtra(message1, formattedDate);
+                intent2.putExtra(positionNum, position);
                 startActivity(intent2);
             }
         });
