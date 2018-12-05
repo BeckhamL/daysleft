@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class itemPopup_delete extends AppCompatActivity {
 
     dataBaseHelper dataBaseHelper = new dataBaseHelper(this);
@@ -33,6 +35,7 @@ public class itemPopup_delete extends AppCompatActivity {
         Intent intent = getIntent();
 
         final String event = intent.getStringExtra(itemPopup.message);
+        final int position = intent.getIntExtra(itemPopup.positionNum,0);
 
         textView.setText(event);
 
@@ -46,8 +49,13 @@ public class itemPopup_delete extends AppCompatActivity {
         buttonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                ArrayList<event> list = listActivity.getList();
+                list.remove(position);
                 dataBaseHelper.deleteEvent(event);
+                listActivity.setList(list);
                 finish();
+                itemPopup.getInstance().finish();
             }
         });
     }

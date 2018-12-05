@@ -16,6 +16,9 @@ public class itemPopup extends AppCompatActivity {
 
     public static final String message = "message";
     public static final String message1 = "formattedDate";
+    public static final String positionNum = "positionNum";
+    static itemPopup itemPopup;
+
     dataBaseHelper dataBaseHelper = new dataBaseHelper(this);
 
     @Override
@@ -23,6 +26,8 @@ public class itemPopup extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_popup);
         getSupportActionBar().hide();
+
+        itemPopup = this;
 
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -58,18 +63,16 @@ public class itemPopup extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-//                Intent intent1 = new Intent(getApplicationContext(), itemPopup_delete.class);
-//                intent1.putExtra(message, event);
-//                startActivity(intent1);
-
-                ArrayList<event> list = listActivity.getList();
-                list.remove(position);
-                dataBaseHelper.deleteEvent(event);
-                listActivity.setList(list);
-
-                finish();
+                Intent intent1 = new Intent(getApplicationContext(), itemPopup_delete.class);
+                intent1.putExtra(message, event);
+                intent1.putExtra(positionNum, position);
+                startActivity(intent1);
             }
         });
 
+    }
+
+    public static itemPopup getInstance() {
+        return itemPopup;
     }
 }

@@ -3,6 +3,7 @@ package com.example.beckhamlam.daysleft;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -39,6 +40,7 @@ public class listActivity extends AppCompatActivity {
         listView = findViewById(R.id.listView);
 
         FloatingActionButton floatingActionButton = findViewById(R.id.fab);
+        final SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.swiperefresh);
 
         final Intent intent = getIntent();
         final String dateString = intent.getStringExtra(MainActivity.sDate);
@@ -94,6 +96,14 @@ public class listActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent1 = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent1);
+            }
+        });
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                listAdapter.notifyDataSetChanged();
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
     }
