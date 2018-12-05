@@ -9,10 +9,14 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class itemPopup extends AppCompatActivity {
 
     public static final String message = "message";
     public static final String message1 = "formattedDate";
+    dataBaseHelper dataBaseHelper = new dataBaseHelper(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,7 @@ public class itemPopup extends AppCompatActivity {
         final String event = intent.getStringExtra(eventAdapter.message);
         String daysLeft = intent.getStringExtra(eventAdapter.daysLeft);
         final String formattedDate = intent.getStringExtra(eventAdapter.formattedDate);
+        final int position = intent.getIntExtra(listActivity.positionNum, 0);
 
         eventText.setText(event);
         daysLeftText.setText(daysLeft);
@@ -53,9 +58,16 @@ public class itemPopup extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent1 = new Intent(getApplicationContext(), itemPopup_delete.class);
-                intent1.putExtra(message, event);
-                startActivity(intent1);
+//                Intent intent1 = new Intent(getApplicationContext(), itemPopup_delete.class);
+//                intent1.putExtra(message, event);
+//                startActivity(intent1);
+
+                ArrayList<event> list = listActivity.getList();
+                list.remove(position);
+                dataBaseHelper.deleteEvent(event);
+                listActivity.setList(list);
+
+                finish();
             }
         });
 

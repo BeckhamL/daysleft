@@ -24,11 +24,13 @@ public class listActivity extends AppCompatActivity {
     public static final String message1 = "message";
     public static final String daysLeft = "daysLeft";
     public static final String formattedDate = "formattedDate";
+    public static final String positionNum = "positionNum";
 
     ListView listView;
     ArrayList<event> events;
     event currEvent = new event("","",0);
     listAdapter listAdapter;
+    static ArrayList<event> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +83,8 @@ public class listActivity extends AppCompatActivity {
                 intent.putExtra(message1, newEvents.getEvent());
                 intent.putExtra(daysLeft, String.valueOf(newEvents.getDaysLeft()));
                 intent.putExtra(formattedDate, newEvents.getFormattedDate());
+                intent.putExtra(positionNum, position);
+                listAdapter.notifyDataSetChanged();
                 startActivity(intent);
             }
         });
@@ -96,7 +100,7 @@ public class listActivity extends AppCompatActivity {
 
     private void populateListView() {
 
-        ArrayList<event> list = dataBaseHelper.getEvents();
+        list = dataBaseHelper.getEvents();
 
         // Sort the array ascending by days left
         Collections.sort(list, new Comparator<event>() {
@@ -134,11 +138,15 @@ public class listActivity extends AppCompatActivity {
     @Override
     public void onResume(){
         super.onResume();
-        events.clear();
-        dataBaseHelper = new dataBaseHelper(this);
-        eventAdapter eventAdapter = new eventAdapter(events, this);
+        listAdapter.notifyDataSetChanged();
 
-        eventAdapter.notifyDataSetChanged();
+    }
 
+    public static void setList(ArrayList<event> list) {
+        listActivity.list = list;
+    }
+
+    public static ArrayList<event> getList() {
+        return list;
     }
 }
