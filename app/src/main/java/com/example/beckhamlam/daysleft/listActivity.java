@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -46,31 +47,36 @@ public class listActivity extends AppCompatActivity {
         final String dateString = intent.getStringExtra(MainActivity.sDate);
         final String message = intent.getStringExtra(MainActivity.message);
 
-        try {
-            Date date = getDateFormat(dateString);
-            Date currDate = getCurrDate();
+        if (dateString == null || message == null) {
+            populateListView();
+        }
+        else {
+            try {
+                Date date = getDateFormat(dateString);
+                Date currDate = getCurrDate();
 
-            if (date.before(currDate)) {
-                Toast.makeText(this, "error", Toast.LENGTH_SHORT).show();
+                if (date.before(currDate)) {
+                    Toast.makeText(this, "error", Toast.LENGTH_SHORT).show();
+                }
+
+                else {
+
+                    String formattedDate = formatDate(date);
+
+                    long difference = (getDateDiff(currDate, date)) + 1;
+
+                    currEvent.setDaysLeft(difference);
+                    currEvent.setEvent(message);
+                    currEvent.setFormattedDate(formattedDate);
+
+                    events = event.createEventList(currEvent);
+                    dataBaseHelper.addData(message, formattedDate, difference);
+
+                }
+
+            } catch (ParseException e) {
+                e.printStackTrace();
             }
-
-            else {
-
-                String formattedDate = formatDate(date);
-
-                long difference = (getDateDiff(currDate, date)) + 1;
-
-                currEvent.setDaysLeft(difference);
-                currEvent.setEvent(message);
-                currEvent.setFormattedDate(formattedDate);
-
-                events = event.createEventList(currEvent);
-                dataBaseHelper.addData(message, formattedDate, difference);
-
-            }
-
-        } catch (ParseException e) {
-            e.printStackTrace();
         }
 
         populateListView();
@@ -143,7 +149,6 @@ public class listActivity extends AppCompatActivity {
     public void onResume(){
         super.onResume();
         listAdapter.notifyDataSetChanged();
-
     }
 
     public static void setList(ArrayList<event> list) {

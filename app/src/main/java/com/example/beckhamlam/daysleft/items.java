@@ -1,10 +1,6 @@
 // TODO: validate whether date user inputted is after currDate
-// TODO: save state for show
-// TODO: bug where date isnt displayed properly on recyclerview, seems to break saturday, wednesday and thursday
-// TODO: fix the UI for how the items are displayed
 // TODO: keyboard click outside to close
-// TODO: editing event, the new date difference is not being populated correctly in database
-// TODO: implement slide to update listview
+// TODO: when editing item, if date is not given app will crash
 
 package com.example.beckhamlam.daysleft;
 
